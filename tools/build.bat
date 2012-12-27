@@ -1,0 +1,1 @@
+mxmlc -static-link-runtime-shared-libraries=true -source-path+=../src/ -library-path+=../lib/ -output=../bin/VectorVsArray.swf -- ../src/VectorVsArray.as
