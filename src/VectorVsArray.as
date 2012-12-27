@@ -13,6 +13,9 @@ package
 		private var vector:Vector.<Number>;
 
 		private var iterations:uint;
+		private var i:uint;
+		private var arrayTime:uint;
+		private var vectorTime:uint;
 		private var arrayRounds:uint;
 		private var vectorRounds:uint;
 		private var fighting:Boolean;
@@ -89,15 +92,18 @@ package
 			setTimeout(testPush, 10);
 		}
 
+		private function updateRounds():void
+		{
+			if (vectorTime > arrayTime)
+				arrayRounds++;
+			else
+				vectorRounds++;
+		}
+
 		private function testPush():void
 		{
 			setIterations(10000000);
-
-			var i:uint;
 			cpln("PUSH TEST");
-
-			var arrayTime:uint;
-			var vectorTime:uint;
 
 			// array
 			var start:uint = getTimer();
@@ -116,21 +122,13 @@ package
 			cpln("vector.push in " + vectorTime + " ms");
 			cpln("");
 
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
-
+			updateRounds();
 			setTimeout(testAccess, 10);
 		}
 
 		private function testAccess():void
 		{
-			var i:uint;
 			cpln("ACCESS TEST");
-
-			var arrayTime:uint;
-			var vectorTime:uint;
 
 			// array
 			var start:uint = getTimer();
@@ -149,21 +147,13 @@ package
 			cpln("vector[i] in " + vectorTime + " ms");
 			cpln("");
 
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
-
+			updateRounds();
 			setTimeout(testPop, 10);
 		}
 
 		private function testPop():void
 		{
-			var i:uint;
 			cpln("POP TEST");
-
-			var arrayTime:uint;
-			var vectorTime:uint;
 
 			// array
 			var start:uint = getTimer();
@@ -182,23 +172,14 @@ package
 			cpln("vector.pop in " + vectorTime + " ms");
 			cpln("");
 
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
-
+			updateRounds();
 			setTimeout(testUnshift, 10);
 		}
 
 		private function testUnshift():void
 		{
 			setIterations(50000);
-
-			var i:uint;
 			cpln("UNSHIFT TEST");
-
-			var arrayTime:uint;
-			var vectorTime:uint;
 
 			// array
 			var start:uint = getTimer();
@@ -217,27 +198,19 @@ package
 			cpln("vector.unshift in " + vectorTime + " ms");
 			cpln("");
 
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
-
+			updateRounds();
 			setTimeout(testShift, 10);
 		}
 
 		private function testShift():void
 		{
-			var i:uint;
 			cpln("SHIFT TEST");
-
-			var arrayTime:uint;
-			var vectorTime:uint;
 
 			// array
 			var start:uint = getTimer();
 			for (i = 0; i < iterations; i++)
 				array.shift();
-
+				
 			arrayTime = getTimer() - start;
 			cpln("array.shift in " + arrayTime + " ms");
 
@@ -250,11 +223,7 @@ package
 			cpln("vector.shift in " + vectorTime + " ms");
 			cpln("");
 
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
-
+			updateRounds();
 			setTimeout(complete, 10);
 		}
 
