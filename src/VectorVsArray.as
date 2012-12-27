@@ -43,7 +43,22 @@ package
 		private function setIterations(iterations:uint):void
 		{
 			this.iterations = iterations;
-			cpln("Number of iterations: " + iterations);
+			cpln("Number of iterations: " + formatNumber(iterations.toString()));
+		}
+
+		private function formatNumber(number:String):String
+		{
+			var r:String = "";
+
+			for (var i:int = number.length - 1; i >= 0; i--)
+			{
+				if (i < number.length - 1 && (number.length - 1 - i) % 3 == 0)
+					r = "." + r;
+
+				r = number.charAt(i) + r;
+			}
+
+			return r;
 		}
 
 		//
@@ -210,7 +225,7 @@ package
 			var start:uint = getTimer();
 			for (i = 0; i < iterations; i++)
 				array.shift();
-				
+
 			arrayTime = getTimer() - start;
 			cpln("array.shift in " + arrayTime + " ms");
 
