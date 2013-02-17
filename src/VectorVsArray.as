@@ -10,7 +10,7 @@ package
 	public class VectorVsArray extends Sprite
 	{
 		private var array:Array;
-		private var vector:Vector.<Number>;
+		private var vector:Vector.<int>;
 
 		private var iterations:uint;
 		private var i:uint;
@@ -90,7 +90,7 @@ package
 		{
 			fighting = true;
 			array = [];
-			vector = new Vector.<Number>();
+			vector = new Vector.<int>();
 			arrayRounds = 0;
 			vectorRounds = 0;
 
@@ -123,7 +123,7 @@ package
 			// array
 			var start:uint = getTimer();
 			for (i = 0; i < iterations; i++)
-				array.push(1);
+				array.push(9999);
 
 			arrayTime = getTimer() - start;
 			cpln("array.push in " + arrayTime + " ms");
@@ -131,7 +131,7 @@ package
 			// vector
 			start = getTimer();
 			for (i = 0; i < iterations; i++)
-				vector.push(1);
+				vector.push(9999);
 
 			vectorTime = getTimer() - start;
 			cpln("vector.push in " + vectorTime + " ms");
