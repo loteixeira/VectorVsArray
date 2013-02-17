@@ -16,9 +16,7 @@ package
 		private var i:uint;
 		private var arrayTime:uint;
 		private var vectorTime:uint;
-		private var arrayRounds:uint;
-		private var vectorRounds:uint;
-		private var fighting:Boolean;
+		private var running:Boolean;
 
 		//
 		// constructor
@@ -34,7 +32,7 @@ package
 			addEventListener(Event.ADDED_TO_STAGE, resizeConsole);
 			addEventListener(Event.RESIZE, resizeConsole);
 
-			fight();
+			start();
 		}
 
 		//
@@ -74,45 +72,28 @@ package
 		//
 		private function consoleInput(e:ConsoleEvent):void
 		{
-			if (e.text == "fight")
+			if (e.text == "start")
 			{
-				if (fighting)
-					cpln("HEY! YOU'RE DISTURBING THE FIGHT!");
+				if (running)
+					cpln("TESTING ALREADY RUNNING");
 				else
-					fight();
+					start();
 			}
 		}
 
 		//
-		// fight!
+		// start!
 		//
-		private function fight():void
+		private function start():void
 		{
-			fighting = true;
+			running = true;
 			array = [];
 			vector = new Vector.<int>();
-			arrayRounds = 0;
-			vectorRounds = 0;
 
-			cpln("Ladies and gentlemen!");
-			cpln("In the blue corner, available since Flash Player 9.");
-			cpln("Also Actionscript/Actionscript2 and even JavaScript: ARRAY!");
-			cpln("His challenger, in the red corner, available since Flash Player 10: VECTOR!");
-			cpln("Let's get ready to rumble!");
-			cpln("(applause)");
-			cpln("");
-			cpln("Ding ding");
+			cpln("STARTING SPEED TEST: VECTOR VS ARRAY")
 			cpln("");
 
 			setTimeout(testPush, 10);
-		}
-
-		private function updateRounds():void
-		{
-			if (vectorTime > arrayTime)
-				arrayRounds++;
-			else
-				vectorRounds++;
 		}
 
 		private function testPush():void
@@ -137,7 +118,6 @@ package
 			cpln("vector.push in " + vectorTime + " ms");
 			cpln("");
 
-			updateRounds();
 			setTimeout(testAccess, 10);
 		}
 
@@ -162,7 +142,6 @@ package
 			cpln("vector[i] in " + vectorTime + " ms");
 			cpln("");
 
-			updateRounds();
 			setTimeout(testPop, 10);
 		}
 
@@ -187,7 +166,6 @@ package
 			cpln("vector.pop in " + vectorTime + " ms");
 			cpln("");
 
-			updateRounds();
 			setTimeout(testUnshift, 10);
 		}
 
@@ -199,7 +177,7 @@ package
 			// array
 			var start:uint = getTimer();
 			for (i = 0; i < iterations; i++)
-				array.unshift(1);
+				array.unshift(9999);
 
 			arrayTime = getTimer() - start;
 			cpln("array.unshift in " + arrayTime + " ms");
@@ -207,13 +185,12 @@ package
 			// vector
 			start = getTimer();
 			for (i = 0; i < iterations; i++)
-				vector.unshift(1);
+				vector.unshift(9999);
 
 			vectorTime = getTimer() - start;
 			cpln("vector.unshift in " + vectorTime + " ms");
 			cpln("");
 
-			updateRounds();
 			setTimeout(testShift, 10);
 		}
 
@@ -238,30 +215,18 @@ package
 			cpln("vector.shift in " + vectorTime + " ms");
 			cpln("");
 
-			updateRounds();
 			setTimeout(complete, 10);
 		}
 
 		private function complete():void
 		{
-			cpln("Ding ding");
-			cpln("");
-			cpln("With " + Math.max(arrayRounds, vectorRounds) + "/" + Math.min(arrayRounds, vectorRounds) + " points.");
-			cpln("The winner is...");
-			cpln("");
-			setTimeout(makeDrama, 1000);
-		}
-
-		private function makeDrama():void
-		{
-			cpln(vectorRounds > arrayRounds ? "VECTOR!" : "ARRAY!");
-			cpln("(applause)");
+			cpln("TEST COMPLETE");
 			cpln("");
 			cpln("-----");
-			cpln("Type 'fight' to restart...");
+			cpln("Type 'start' to restart...");
 			cpln("");
 
-			fighting = false;
+			running = false;
 		}
 	}
 }
